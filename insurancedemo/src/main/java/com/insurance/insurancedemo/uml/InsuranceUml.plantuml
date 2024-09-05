@@ -1,0 +1,33 @@
+@startuml
+title Sequence Diagram for InsurancePolicyController
+
+actor Client
+participant InsurancePolicyController
+participant InsurancePolicyService
+
+Client -> InsurancePolicyController: GET /api/insurance-policies/{id}
+InsurancePolicyController -> InsurancePolicyService: getByInsurancePolicyId(id)
+InsurancePolicyService --> InsurancePolicyController: Optional<InsurancePolicy>
+InsurancePolicyController --> Client: ResponseEntity<InsurancePolicy>
+
+Client -> InsurancePolicyController: GET /api/insurance-policies
+InsurancePolicyController -> InsurancePolicyService: getAllInsurancePolicies()
+InsurancePolicyService --> InsurancePolicyController: List<InsurancePolicy>
+InsurancePolicyController --> Client: List<InsurancePolicy>
+
+Client -> InsurancePolicyController: POST /api/insurance-policies
+InsurancePolicyController -> InsurancePolicyService: saveInsurancePolicy(insurancePolicy)
+InsurancePolicyService --> InsurancePolicyController: InsurancePolicy
+InsurancePolicyController --> Client: InsurancePolicy
+
+Client -> InsurancePolicyController: DELETE /api/insurance-policies/{id}
+InsurancePolicyController -> InsurancePolicyService: deleteInsurancePolicy(id)
+InsurancePolicyService --> InsurancePolicyController: void
+InsurancePolicyController --> Client: ResponseEntity<Void>
+
+Client -> InsurancePolicyController: PUT /api/insurance-policies/{id}
+InsurancePolicyController -> InsurancePolicyService: updateInsurancePolicy(id, policyDetails)
+InsurancePolicyService --> InsurancePolicyController: InsurancePolicy
+InsurancePolicyController --> Client: ResponseEntity<InsurancePolicy>
+
+@enduml
